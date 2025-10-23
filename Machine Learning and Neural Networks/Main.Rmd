@@ -1,0 +1,199 @@
+---
+title: "ML Workshop"
+author: "Ben Gelderd"
+date: "2025-10-23"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Here's some maths: 
+$$
+\log(x^3) \neq \frac{\exp(3x)}{x}.
+$$
+
+## Align subsection
+
+Adding maths in an "align" environment makes it easier to line things up. 
+$$
+\begin{aligned}
+\mu &\sim \text{N}(0,1),\\
+X_i|\mu &\sim \text{N}(\mu,1), ~~~i=1,\dots,n. 
+\end{aligned}
+$$ \# R section
+
+Here's some very simple R code.
+
+```{r}
+x <- rnorm(100)
+y <- runif(100) + x
+plot(x,y)
+```
+
+
+```{r}
+Glass <- read.csv("https://www.maths.dur.ac.uk/users/john.p.gosling/MATH3431_practicals/Glass.csv")
+# Fit a linear model
+lm1 <- lm(RI ~ . - Type,
+          data = Glass)
+summary(lm1)
+preds <- predict(lm1)
+plot(preds, Glass$RI)
+```
+```{r}
+#calculate mean square error and mean absolute error for the model
+mean((Glass$RI - preds)**2)
+mean(abs(Glass$RI - preds))
+```
+
+```{r}
+# Fit a linear model
+lm2 <- lm(RI ~ Na + Mg + K + Ca + Ba,
+          data = Glass)
+summary(lm2)
+preds2 <- predict(lm2)
+mean((Glass$RI - preds2)**2)
+mean(abs(Glass$RI - preds2))
+```
+```{r}
+# Fit a linear model
+lm3 <- lm(RI ~ Si + Al + Fe,
+          data = Glass)
+summary(lm3)
+pred3 <- predict(lm3)
+mean((Glass$RI - pred3)**2)
+mean(abs(Glass$RI-pred3))
+```
+```{r}
+# Fit a linear model without interactions
+lm4 <- lm(RI ~ Na + Ba, data = Glass)
+
+# Summarise the model
+summary(lm4)
+  
+# Fit a model with the interaction
+lm5 <- lm(RI ~ Na*Ba,
+          data = Glass)
+
+# Summarise the model
+summary(lm5)
+
+'
+It is important to consider the affect of one variable on the other ultimately
+changing our output for the model thus we must include interactions.
+'
+```
+```{r}
+# Create a proxy for the interaction term
+Glass$Na_Ba <- Glass$Na * Glass$Ba
+
+# Look at the relationships between the variables
+pairs(Glass[, c("RI", "Na", "Ba", "Na_Ba")])
+```
+```{r}
+# Load in the data
+LetterRecognition <- read.csv("https://www.maths.dur.ac.uk/users/john.p.gosling/MATH3431_practicals/LetterRecognition.csv")
+
+# Look at the first few rows
+head(LetterRecognition)
+
+# Look at the structure of the data
+str(LetterRecognition)
+
+# Look at the levels of the letter variable
+levels(as.factor(LetterRecognition$lettr))
+
+# Create a subset of the data
+ltrs <- subset(LetterRecognition,
+               lettr %in% c("I", "A", "W"))
+
+# Reset the levels of the letter variable
+ltrs$lettr <- factor(ltrs$lettr)
+```
+```{r}
+# A jittered scatter plot of the width vs the height with the letters coloured
+plot(ltrs$width+rnorm(nrow(ltrs), 0, 0.1),
+     ltrs$high+rnorm(nrow(ltrs), 0, 0.1),
+     col = as.numeric(ltrs$lettr),
+     pch = 19, cex = 0.2,
+     xlab = "Width", ylab = "Height")
+
+# Add a legend
+legend("bottomright", legend = levels(ltrs$lettr), col = 1:3, pch = 19)
+```
+```{r}
+# Load the MASS package
+library(MASS)
+
+# Fit the LDA model
+lda1 <- lda(lettr ~ .,
+            data = ltrs)
+
+# Summarise the model
+lda1
+
+# Make predictions
+preds <- predict(lda1)
+
+# Calculate the confusion matrix using the table function
+table(ltrs$lettr, preds$class)
+```
+```{r}
+# Fit the LDA model
+lda2 <- lda(lettr ~ x.box + y.box + width + high,
+            data = ltrs)
+
+# Summarise the model
+lda2
+
+# Make predictions
+preds2 <- predict(lda2)
+
+# Calculate the confusion matrix
+table(ltrs$lettr, preds2$class)
+```
+```{r}
+# Calculate the overall accuracy 
+# (hint consider the elements of the confusion matrix)
+mean(ltrs$lettr == preds2$class)
+
+# Calculate the precision for `A`
+precision <- table(ltrs$lettr, preds2$class)[1,1] / sum(table(ltrs$lettr, preds2$class)[,1])
+precision
+
+# Calculate the recall for `A`
+recall <- table(ltrs$lettr, preds2$class)[1,1] / sum(table(ltrs$lettr, preds2$class)[1,])
+recall
+```
+```{r}
+# Fit the LDA model
+lda3 <- lda(lettr ~ I(width^0.5) + high,
+            data = ltrs)
+
+# Summarise the model
+lda3
+
+# Make predictions
+preds3 <- predict(lda3)
+
+# Calculate the confusion matrix
+table(ltrs$lettr, preds3$class)
+```
+```{r}
+# Calculate the overall accuracy
+mean(ltrs$lettr == preds3$class)
+
+# Calculate the precision for `A`
+table(ltrs$lettr, preds3$class)[1,1] / sum(table(ltrs$lettr, preds3$class)[,1])
+
+# Calculate the recall for `A`
+table(ltrs$lettr, preds3$class)[1,1] / sum(table(ltrs$lettr, preds3$class)[1,])
+```
+
+
+
