@@ -1,0 +1,34 @@
+The main goal of this module was to introduce us to the mathematical modelling of a range of systems. 
+A different topic was covered every week:
+
+Numpy and Python Classes : a numpy refresher and and introduction to python classes. 
+Both to be used extensively for all the projects.
+
+Population Dynamics : The simplest mathematical model, a fixed step description of a population evolution.
+
+Comparing Model with Data : Modelling a system is only useful is we can compare its predictions with real data. 
+This project described one of the simplest method to do it.
+
+Continuous Time Models : The first models used a fixed finite step, but for many system, one must use a continuous model. 
+This meant using and solving differential equations.
+
+Diffusion : Diffusion describe the random spreading of small particles. 
+This is the simplest model involving partial differential equations.
+
+The Cyclotron : A cyclotron a a physicist tool to accelerate charged particles to very high speed. 
+This involves using second order differential equations.
+
+Modelling Traffic : A completely different type of model based exclusively on a simple algorithm.
+This is the simplest case of what is called agent based modelling.
+
+Evaluating Integrals in Very Large Dimensions : The project will describe how to preform integrals involving a very large number of dimensions. 
+This in preparation of the next project.
+
+The Ising Model : This is the simplest statistical mechanics model: a large number of spins interacting randomly with each other.
+
+---------------------------------
+I have provided the summative project, which determined our grade, as a respresentation on the application of these skills.
+We were tasked to develop an essay in LaTeX based on tasks that applied the skills we developed throughout the model, 
+the task sheet is attached as debris_ULTRA.pdf.
+
+The final essay is attached as summative.pdf and the code in the Code folder, all of which has been unedited since submission.
