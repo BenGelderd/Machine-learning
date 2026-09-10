@@ -1,0 +1,6 @@
+In this folder lies my dissertation and dissertation image generation code.
+
+The code was created by myself with AI assistance (mainly for debugging, formatting and multiprocessing method assistance).
+I did not include the code within my actual graded dissertation, only the images produced by them.
+This code gives a deep insight into how I applied the maths I learnt at the time and has not been updated since (the code could defenitely
+be improved upon but the purpose is to show my application of Numpy and Matplotlib at the time).
