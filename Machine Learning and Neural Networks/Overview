@@ -1,1 +1,5 @@
+This folder contains the Machine Learning and Neural Networks algorithms which I have created from scratch using Numpy.
+The purpose of this task was consolodate what I applied in R at university within Python.
 
+Whilst I utilise Scikit Learn for better predictions, clustering etc, this project allowed me to better uderstand the 
+mathematical theory behind classification and regression that pre-programmed algorithms tend to cause ignorance towards.
